@@ -6,13 +6,14 @@ Many thanks to [Spytensor's](https://www.kaggle.com/spytensor) [awsome starter c
 
 My final model is just a single resnet50(on a 5 folds setting), trained on rgb data(with hpa set). Thresholding is done on the out of fold predictions, using a single threshold rather than per label thresholds. TTA is done by averaging outputs of 10 randomly transformed version of the same image. 
 
-Some stuffs that I found useful:
+Some stuffs that I found useful:  
 
-1. Use RGB instead of RGBY: By looking at the images I found that yellow channel looks very similar to red or blue, therefore should be kind of redundent to use RGBY, not to mention that I don't even know if the yellow channels from hpa dataset are trustworthy or not.
-2. Use HPA dataset: I found adding hpa data into my Kaggle training data split, can improve validtion results on my Kaggle validation set.
-3. Use mutlilabel stratified splits: Thanks [Trent](https://github.com/trent-b) for his package [iterstrat](https://github.com/trent-b/iterative-stratification). It made my models cross folds performance variation low(except for fold 4 be slightly off). Before this, my cross folds variation was bigger.   
-5. Use [weighted sampler](https://pytorch.org/docs/stable/_modules/torch/utils/data/sampler.html) in PyTorch dataloader: With BCE loss, making the model to see rare labels a bit more often, I found, is better than use f1_loss with uniform randomly sampled data. 
-6. Use TTA: It improves ~ .01 for most folds, and for my last fold, it improves about .04(very strange fold, which I have no time to dig into). 
+1. Use RGB instead of RGBY: By looking at the images I found that yellow channel looks very similar to red or blue, therefore should be kind of redundent to use RGBY, not to mention that I don't even know if the yellow channels from hpa dataset are trustworthy or not.  
+2. Use HPA dataset: I found adding hpa data into my Kaggle training data split, can improve validtion results on my Kaggle validation set.  
+3. Use mutlilabel stratified splits: Thanks [Trent](https://github.com/trent-b) for his package [iterstrat](https://github.com/trent-b/iterative-stratification). It made my models cross folds performance variation low(except for fold 4 be slightly off). Before this, my cross folds variation was bigger.  
+4. Use data augmentation: I think rotate, flip, shear, and random cropping all make sense and used them all with awsome [albumentations](https://github.com/albu/albumentations) package.    
+5. Use [weighted sampler](https://pytorch.org/docs/stable/_modules/torch/utils/data/sampler.html) in PyTorch dataloader: With BCE loss, making the model to see rare labels a bit more often, I found, is better than use f1_loss with uniform randomly sampled data.   
+6. Use TTA: It improves ~ .01 for most folds, and for my last fold, it improves about .04(very strange fold, which I have no time to dig into).   
 
 Sample command I used for training the resnet50 model:
 ```
