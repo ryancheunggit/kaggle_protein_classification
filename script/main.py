@@ -330,7 +330,7 @@ def main(model_name='bninception', resume=True, resume_with_state='', split_meth
         criterion = F1_Loss().cuda()
 
     # --- optimizer
-    optimizer = optim.Adam(model.parameters(), lr = config.lr)
+    optimizer = optim.Adam(model.parameters(), lr = config.initial_lr)
 
     # --- learning rate scheduler
     scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='max', factor=0.1, patience=lr_scheduler_patience,
@@ -366,7 +366,7 @@ def main(model_name='bninception', resume=True, resume_with_state='', split_meth
 
         # ---- get optimizer state
         if "optimizer" in model_state:
-            optimizer = optim.Adam(model.parameters(), lr = config.lr)
+            optimizer = optim.Adam(model.parameters(), lr = config.initial_lr)
             optimizer.load_state_dict(model_state["optimizer"])
             for state in optimizer.state.values():
                 for k, v in state.items():
