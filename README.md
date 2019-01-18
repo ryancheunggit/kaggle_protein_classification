@@ -8,7 +8,7 @@ My final model is just a single resnet50(on a 5 folds setting), trained on rgb d
 
 Some stuffs that I found useful:  
 
-1. Use RGB instead of RGBY: By looking at the images I found that yellow channel looks very similar to red or blue, therefore should be kind of redundent to use RGBY, not to mention that I don't even know if the yellow channels from hpa dataset are trustworthy or not.  
+1. Use RGB instead of RGBY: By looking at the images I found that yellow channel looks very similar to red or green, therefore should be kind of redundent to use RGBY, not to mention that I don't even know if the yellow channels from hpa dataset are trustworthy or not.  
 2. Use HPA dataset: I found adding hpa data into my Kaggle training data split, can improve validtion results on my Kaggle validation set.  
 3. Use mutlilabel stratified splits: Thanks [Trent](https://github.com/trent-b) for his package [iterstrat](https://github.com/trent-b/iterative-stratification). It made my models cross folds performance variation low(except for fold 4 be slightly off). Before this, my cross folds variation was bigger.  
 4. Use data augmentation: I think rotate, flip, shear, and random cropping all make sense and used them all with awsome [albumentations](https://github.com/albu/albumentations) package.    
